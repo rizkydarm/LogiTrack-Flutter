@@ -12,38 +12,6 @@
 
 ---
 
-## 🎨 Design System (Google Stitch)
-
-LogiTrack implements a premium, anti-generic UI following Google Stitch design principles:
-
-### Color Palette
-| Role | Color | Hex |
-|------|-------|-----|
-| Primary | Deep Blue | `#094cb2` |
-| Primary Container | Medium Blue | `#3366cc` |
-| Primary Fixed | Light Blue | `#d9e2ff` |
-| Background | Off-White | `#faf9fa` |
-| Surface Container | Warm Gray | `#efedee` - `#e3e2e3` |
-| On Surface | Charcoal | `#1b1c1d` |
-| On Surface Variant | Steel | `#434653` |
-| Tertiary | Gold | `#6d5e00` |
-| Tertiary Container | Amber | `#bfab49` |
-| Error | Red | `#ba1a1a` |
-
-### Typography
-- **Headlines:** Noto Serif (italic for branding, track-tight)
-- **Body:** Inter (relaxed leading, 65ch max)
-- **Labels:** Public Sans (uppercase tracking for metadata)
-
-### Design Principles
-- No emojis - use Material Symbols icons instead
-- No pure black - use Charcoal `#1b1c1d`
-- No neon/outer glow shadows
-- Clean spatial separation - no overlapping elements
-- Glass-morphism with `backdrop-blur-xl` for overlays
-
----
-
 ## ✨ Core Features (Aligned with Job Requirements)
 
 ### 🚚 Real-time Courier Tracking (Socket.IO)
@@ -109,39 +77,53 @@ This project intentionally uses a curated set of libraries that align perfectly 
 
 This project strictly follows **Clean Architecture** combined with **Repository Pattern** to ensure testability and separation of concerns.
 
+```
+lib/
+├── core/                      # Shared utilities, constants, themes
+├── features/                  # Feature-based modules
+│   └── [feature_name]/
+│       ├── data/             # Repositories, data sources, models
+│       ├── domain/           # Entities, use cases, repository interfaces
+│       └── presentation/     # BLoCs, UI, widgets
+├── injection_container.dart  # GetIt dependency injection setup
+└── main.dart
+```
+
+### Dependency Rule
+- Source code dependencies point inward
+- **Presentation** layer depends on **Domain** layer
+- **Data** layer depends on **Domain** layer
+- **Domain** layer has NO dependencies on outer layers
+
 ---
 
-## 🎯 UI Component Guidelines
+## 🔧 Setup & Installation
 
-### Cards
-- Border radius: `12px` (rounded-xl)
-- Background: Surface Container Lowest `#ffffff`
-- Shadow: Subtle `0 2px 8px rgba(0,0,0,0.06)`
-- Border: `1px solid rgba(195, 198, 213, 0.3)` (outline-variant)
+1. Clone the repository
+2. Configure Firebase project (add `google-services.json` for Android, `GoogleService-Info.plist` for iOS)
+3. Configure Google Maps API key in `android/app/src/main/AndroidManifest.xml` and `ios/Runner/AppDelegate.swift`
+4. Run `flutter pub get`
+5. Run `flutter run`
 
-### Buttons
-- Primary: Gradient from Primary `#094cb2` to Primary Container `#3366cc`
-- Border radius: `12px` (rounded-xl) to `9999px` (rounded-full)
-- Height: `48px` minimum touch target
-- Active state: `-2px` translate for tactile feedback
+---
 
-### Navigation
-- Bottom Nav: Fixed, `80px` height, backdrop blur, rounded top corners
-- Top App Bar: Backdrop blur `xl`, transparent when scrolled
-- Material Symbols icons with FILL variant for active states
+## 📂 Project Structure
 
-### Progress Indicators
-- Step indicators: 4px height bars
-- Active: Primary color fill
-- Completed: Primary color full
-- Pending: Surface variant gray
-
-### Timeline
-- Vertical line: Surface variant color
-- Active dot: Primary with glow shadow
-- Inactive dot: Surface variant gray
-
-### Bottom Sheets
-- Border radius: `32px` top corners
-- Backdrop blur: `20px`
-- Handle indicator: `48px x 6px` centered bar
+```
+lib/
+├── core/
+│   ├── constants/           # App-wide constants
+│   ├── errors/              # Failure classes
+│   ├── usecases/            # Base use case class
+│   └── utils/               # Utilities (XML generator, etc.)
+├── features/
+│   ├── auth/                # Firebase authentication
+│   ├── tracking/            # Real-time location tracking
+│   ├── geofence/            # Geofencing & check-in
+│   ├── orders/              # Order management
+│   ├── notifications/       # Firebase messaging
+│   └── reports/             # XML report generation
+└── shared/
+    ├── widgets/             # Reusable UI components
+    └── theme/               # App theme configuration
+```
