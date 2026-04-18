@@ -46,7 +46,19 @@ lib/
 
 ## Design System (Google Stitch)
 
-This project follows Google Stitch design principles for a premium, anti-generic UI.
+**IMPORTANT: All UI implementations MUST follow `stitch_code.html` as the source of truth.**
+
+This project follows Google Stitch design principles for a premium, anti-generic UI. The reference file `stitch_code.html` contains the canonical implementation of all screens and components. When implementing UI:
+
+1. **Reference `stitch_code.html`** for exact color values, spacing, typography, and component behaviors
+2. **Extract colors** from the Tailwind config in the HTML (e.g., `primary: #094cb2`, `surface-container-lowest: #ffffff`)
+3. **Match component states** exactly as shown (active/inactive nav items, hover effects, shadows)
+4. **Follow the HTML structure** for layout hierarchy and responsive breakpoints
+5. **Use Material Symbols icons** with appropriate FILL variant for active states
+
+### Source Files
+- **UI Reference:** `stitch_code.html` - Google Stitch generated screens
+- **Design Specs:** This AGENTS.md - Color palette, typography, and component standards
 
 ### Color Palette
 
@@ -421,3 +433,4 @@ Before shipping any feature, verify:
 - [Noto Serif Font](https://fonts.google.com/noto)
 - [Inter Font](https://fonts.google.com/inter)
 - [Public Sans Font](https://fonts.google.com/specimen/Public+Sans)
+- [Google Stitch](https://labs.google.com/stitch)
