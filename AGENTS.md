@@ -44,6 +44,57 @@ lib/
 
 ---
 
+## Design System (Google Stitch)
+
+This project follows Google Stitch design principles for a premium, anti-generic UI.
+
+### Color Palette
+
+| Role | Color | Hex |
+|------|-------|-----|
+| Primary | Deep Blue | `#094cb2` |
+| Primary Container | Medium Blue | `#3366cc` |
+| Primary Fixed | Light Blue | `#d9e2ff` |
+| Inverse Primary | Pale Blue | `#b1c5ff` |
+| Background | Off-White | `#faf9fa` |
+| Surface | Off-White | `#faf9fa` |
+| Surface Bright | Off-White | `#faf9fa` |
+| Surface Container Lowest | White | `#ffffff` |
+| Surface Container Low | Warm Gray Light | `#f5f3f4` |
+| Surface Container | Warm Gray | `#efedee` |
+| Surface Container High | Gray | `#e9e8e9` |
+| Surface Container Highest | Dark Gray | `#e3e2e3` |
+| Surface Dim | Dim Gray | `#dbdadb` |
+| On Surface | Charcoal | `#1b1c1d` |
+| On Surface Variant | Steel | `#434653` |
+| Tertiary | Gold | `#6d5e00` |
+| Tertiary Container | Amber | `#bfab49` |
+| Tertiary Fixed | Pale Gold | `#f9e37a` |
+| Tertiary Fixed Dim | Muted Gold | `#dcc661` |
+| Error | Red | `#ba1a1a` |
+| Error Container | Light Red | `#ffdad6` |
+| Outline | Medium Gray | `#737784` |
+| Outline Variant | Light Gray | `#c3c6d5` |
+
+### Typography
+
+| Style | Font | Size | Weight | Usage |
+|-------|------|------|--------|-------|
+| Headline | Noto Serif | 32-48px | Bold | Page titles, serif emphasis |
+| Body | Inter | 14-16px | Regular/Medium | Descriptions, content |
+| Label | Public Sans | 10-14px | Medium/Semibold | Buttons, captions, uppercase metadata |
+| Display | Noto Serif Italic | 24px | Bold | Logo only |
+
+### Border Radius System
+- Default: `2px`
+- LG: `4px`
+- XL: `8px`
+- Full: `12px` (buttons, inputs)
+- 2XL: `16px` (cards)
+- 3XL: `24px` (bottom sheets)
+
+---
+
 ## Token Efficiency Principles
 
 ### Core Philosophy
@@ -101,7 +152,7 @@ class TrackingBloc extends Bloc<TrackingEvent, TrackingState> {
 | **Database** | `sqflite` | SQL offline storage |
 | **Firebase** | `firebase_core`, `firebase_auth`, `cloud_firestore`, `firebase_messaging` | Backend services |
 | **DI** | `get_it`, `injectable` | Service locator |
-| **Utilities** | `equatable`, `google_fonts`, `shimmer`, `flutter_svg` | UI polish |
+| **UI** | `equatable`, `google_fonts`, `shimmer`, `flutter_svg`, `material_symbols_icons` | UI polish, icons |
 
 ---
 
@@ -213,6 +264,85 @@ Cache Hierarchy (in order of token cost):
 
 ---
 
+## UI Component Standards
+
+### Theme Data (Flutter)
+
+```dart
+// Color Scheme
+const Color primary = Color(0xFF094CB2);
+const Color primaryContainer = Color(0xFF3366CC);
+const Color background = Color(0xFFF9FAFA);
+const Color surface = Color(0xFFF9FAFA);
+const Color surfaceContainerLowest = Color(0xFFFFFFFF);
+const Color surfaceContainer = Color(0xFFEFEDEE);
+const Color onSurface = Color(0xFF1B1C1D);
+const Color onSurfaceVariant = Color(0xFF434653);
+const Color tertiary = Color(0xFF6D5E00);
+const Color tertiaryContainer = Color(0xFFBFAB49);
+const Color error = Color(0xFFBA1A1A);
+const Color outline = Color(0xFF737784);
+const Color outlineVariant = Color(0xFFC3C6D5);
+
+// Border Radius
+const double radiusLg = 4.0;    // 4px
+const double radiusXl = 8.0;    // 8px
+const double radiusFull = 12.0; // 12px - buttons, inputs
+const double radius2xl = 16.0;  // 16px - cards
+const double radius3xl = 24.0;  // 24px - bottom sheets
+```
+
+### Card Widget
+- Border radius: 16px
+- Background: Surface Container Lowest `#FFFFFF`
+- Border: 1px Outline Variant `rgba(195, 198, 213, 0.3)`
+- Padding: 24px
+- Shadow: `BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 8, offset: Offset(0, 2))`
+
+### Button Widget
+- Primary: Gradient from Primary to Primary Container
+- Border radius: 12px (Full)
+- Height: 48px minimum
+- Text: Public Sans, 14px, Bold, uppercase tracking
+- Active state: translateY(-2px) with deeper shadow
+- Disabled: 50% opacity
+
+### Bottom Navigation Bar
+- Height: 80px + safe area
+- Background: Surface Container Lowest with 90% opacity + backdrop blur
+- Border top: 1px Outline Variant at 10% opacity
+- Icons: Material Symbols, 24px
+- Active: Primary color, filled variant
+- Inactive: On Surface Variant color
+- Border radius on top: 24px
+
+### Top App Bar
+- Height: 64px + safe area
+- Background: Surface Container Lowest with 80% opacity + backdrop blur
+- Logo: Noto Serif Italic, Blue 800
+- Icons: Material Symbols, 24px
+
+### Progress/Step Indicator
+- Height: 4px bars
+- Active: Primary fill
+- Completed: Primary fill
+- Pending: Surface Variant fill
+- Border radius: Full
+
+### Timeline Component
+- Line width: 2px
+- Line color: Outline Variant
+- Active dot: 16px, Primary fill, ring shadow
+- Inactive dot: 16px, Surface Variant fill
+
+### Bottom Sheet
+- Border radius: 32px top corners
+- Backdrop blur: 20px
+- Handle: 48px x 6px, centered, Surface Variant
+- Shadow: `BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 48, offset: Offset(0, -12))`
+
+---
+
 ## File Naming Conventions
 
 | Type | Convention | Example |
@@ -226,6 +356,7 @@ Cache Hierarchy (in order of token cost):
 | Use Case | `[action]_[feature]_usecase.dart` | `get_location_usecase.dart` |
 | Page | `[name]_page.dart` | `map_page.dart` |
 | Widget | `[name]_widget.dart` | `location_marker_widget.dart` |
+| Theme | `app_theme.dart` | Theme configuration |
 
 ---
 
@@ -265,6 +396,19 @@ Before shipping any feature, verify:
 
 ---
 
+## Design Anti-Patterns (BANNED)
+
+- **No emojis** - use Material Symbols icons only
+- **No pure black** (#000000) - use Charcoal `#1B1C1D`
+- **No neon/outer glow shadows** - subtle, diffused shadows only
+- **No overlapping elements** - clean spatial separation
+- **No Inter for headlines** - Noto Serif for display/headlines
+- **No generic placeholder names** - use realistic sample data
+- **No centered hero sections** - prefer asymmetric layouts
+- **No 3-column equal card grids** - use asymmetric grids
+
+---
+
 ## Resources
 
 - [BLoC Library](https://bloclibrary.dev)
@@ -273,3 +417,7 @@ Before shipping any feature, verify:
 - [Google Maps Flutter](https://pub.dev/packages/google_maps_flutter)
 - [Google Maps API Best Practices](https://developers.google.com/maps/api-security-best-practices)
 - [Firebase Pricing](https://firebase.google.com/pricing)
+- [Material Symbols Icons](https://fonts.google.com/icons)
+- [Noto Serif Font](https://fonts.google.com/noto)
+- [Inter Font](https://fonts.google.com/inter)
+- [Public Sans Font](https://fonts.google.com/specimen/Public+Sans)

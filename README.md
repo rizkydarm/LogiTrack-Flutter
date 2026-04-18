@@ -12,6 +12,38 @@
 
 ---
 
+## 🎨 Design System (Google Stitch)
+
+LogiTrack implements a premium, anti-generic UI following Google Stitch design principles:
+
+### Color Palette
+| Role | Color | Hex |
+|------|-------|-----|
+| Primary | Deep Blue | `#094cb2` |
+| Primary Container | Medium Blue | `#3366cc` |
+| Primary Fixed | Light Blue | `#d9e2ff` |
+| Background | Off-White | `#faf9fa` |
+| Surface Container | Warm Gray | `#efedee` - `#e3e2e3` |
+| On Surface | Charcoal | `#1b1c1d` |
+| On Surface Variant | Steel | `#434653` |
+| Tertiary | Gold | `#6d5e00` |
+| Tertiary Container | Amber | `#bfab49` |
+| Error | Red | `#ba1a1a` |
+
+### Typography
+- **Headlines:** Noto Serif (italic for branding, track-tight)
+- **Body:** Inter (relaxed leading, 65ch max)
+- **Labels:** Public Sans (uppercase tracking for metadata)
+
+### Design Principles
+- No emojis - use Material Symbols icons instead
+- No pure black - use Charcoal `#1b1c1d`
+- No neon/outer glow shadows
+- Clean spatial separation - no overlapping elements
+- Glass-morphism with `backdrop-blur-xl` for overlays
+
+---
+
 ## ✨ Core Features (Aligned with Job Requirements)
 
 ### 🚚 Real-time Courier Tracking (Socket.IO)
@@ -69,11 +101,47 @@ This project intentionally uses a curated set of libraries that align perfectly 
 | **Local Database** | `sqflite` | **SQL** database for offline-first architecture. |
 | **Firebase** | `firebase_core`, `firebase_auth`, `cloud_firestore`, `firebase_messaging` | Demonstrates "familiar menggunakan **Firebase**". |
 | **Architecture** | `get_it` & `injectable` | Service Locator for clean **Dependency Injection**. |
-| **Utilities** | `equatable` | Simplifies value equality in BLoC states/cubits. |
-| **UI** | `google_fonts`, `shimmer`, `flutter_svg` | Polished, production-ready UI components. |
+| **Utilities** | `equatable`, `google_fonts`, `shimmer`, `flutter_svg` | UI polish. Material Symbols for icons. |
 
 ---
 
 ## 🏛️ Project Architecture (OOP & Clean Architecture)
 
 This project strictly follows **Clean Architecture** combined with **Repository Pattern** to ensure testability and separation of concerns.
+
+---
+
+## 🎯 UI Component Guidelines
+
+### Cards
+- Border radius: `12px` (rounded-xl)
+- Background: Surface Container Lowest `#ffffff`
+- Shadow: Subtle `0 2px 8px rgba(0,0,0,0.06)`
+- Border: `1px solid rgba(195, 198, 213, 0.3)` (outline-variant)
+
+### Buttons
+- Primary: Gradient from Primary `#094cb2` to Primary Container `#3366cc`
+- Border radius: `12px` (rounded-xl) to `9999px` (rounded-full)
+- Height: `48px` minimum touch target
+- Active state: `-2px` translate for tactile feedback
+
+### Navigation
+- Bottom Nav: Fixed, `80px` height, backdrop blur, rounded top corners
+- Top App Bar: Backdrop blur `xl`, transparent when scrolled
+- Material Symbols icons with FILL variant for active states
+
+### Progress Indicators
+- Step indicators: 4px height bars
+- Active: Primary color fill
+- Completed: Primary color full
+- Pending: Surface variant gray
+
+### Timeline
+- Vertical line: Surface variant color
+- Active dot: Primary with glow shadow
+- Inactive dot: Surface variant gray
+
+### Bottom Sheets
+- Border radius: `32px` top corners
+- Backdrop blur: `20px`
+- Handle indicator: `48px x 6px` centered bar
