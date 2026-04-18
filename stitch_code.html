@@ -1,0 +1,1125 @@
+<!-- Live Tracking -->
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LogiTrack - Live Tracking Map</title>
+<!-- Google Fonts: Noto Serif (Headline), Inter (Body), Public Sans (Label) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,700&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary": "#094cb2",
+                        "inverse-primary": "#b1c5ff",
+                        "tertiary-fixed-dim": "#dcc661",
+                        "secondary-container": "#dfe3e8",
+                        "on-primary-container": "#e7ebff",
+                        "on-secondary-fixed": "#171c20",
+                        "secondary-fixed": "#dfe3e8",
+                        "on-tertiary-container": "#4a3f00",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#524600",
+                        "background": "#faf9fa",
+                        "primary-fixed": "#d9e2ff",
+                        "on-surface": "#1b1c1d",
+                        "on-tertiary-fixed": "#211b00",
+                        "on-surface-variant": "#434653",
+                        "tertiary-container": "#bfab49",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#6d5e00",
+                        "primary-container": "#3366cc",
+                        "inverse-on-surface": "#f2f0f1",
+                        "surface-dim": "#dbdadb",
+                        "surface-tint": "#2259bf",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f5f3f4",
+                        "on-secondary-fixed-variant": "#42474b",
+                        "surface-bright": "#faf9fa",
+                        "error": "#ba1a1a",
+                        "surface": "#faf9fa",
+                        "surface-container": "#efedee",
+                        "secondary-fixed-dim": "#c2c7cc",
+                        "on-error-container": "#93000a",
+                        "on-background": "#1b1c1d",
+                        "outline": "#737784",
+                        "surface-container-highest": "#e3e2e3",
+                        "surface-container-high": "#e9e8e9",
+                        "on-primary-fixed": "#001946",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "on-primary-fixed-variant": "#00419d",
+                        "surface-variant": "#e3e2e3",
+                        "outline-variant": "#c3c6d5",
+                        "secondary": "#5a5f63",
+                        "inverse-surface": "#303031",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#f9e37a",
+                        "on-secondary-container": "#606569"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Public Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body bg-background text-on-background h-screen w-full overflow-hidden relative flex flex-col antialiased">
+<!-- Map Background Area -->
+<div class="absolute inset-0 z-0 bg-surface-container-low w-full h-full">
+<!-- Render Map Placeholder -->
+<img alt="Map view" class="w-full h-full object-cover opacity-80 mix-blend-multiply" data-alt="Clean, minimal vector map graphic of urban city streets with soft gray tones and a vibrant blue highlighted route path winding through the blocks" data-location="San Francisco" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsF6ss3J6Q8l-y33wk2rofENkA5tAT4TnVn4VTqzm0cjAfXtQFs_A7tVfre2a1ab8NC-2esTyR29GrTncaikthqID2I9tObiK9PQi2yoSwV8w4_3hFdVx1oEyL5tau-0MB5K7cCW8K7l5lOlWwpE6jQ5Cshol8Q12kaX5rnRNgm4cKeO8n-r_0egAuXe7yEXNECxfGFtaH1L2Plruu4jESdrMjE9UaZxQNww3YuyeSfqoMb6bzTEMqnLLC20Ohxxz6znwIy6Wvw-o"/>
+<!-- Live Route Overlay (Simulated) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="xMidYMid slice" viewbox="0 0 1000 1000">
+<path class="opacity-90 shadow-lg" d="M 200 800 C 300 750, 400 600, 500 500 S 700 400, 800 200" fill="none" stroke="#094cb2" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"></path>
+<!-- Current Location Marker -->
+<circle class="shadow-xl" cx="500" cy="500" fill="#094cb2" r="16" stroke="#ffffff" stroke-width="4"></circle>
+</svg>
+</div>
+<!-- TopAppBar (Shared Component) -->
+<header class="flex justify-between items-center px-6 py-4 w-full z-50 bg-slate-50/80 backdrop-blur-xl absolute top-0 transition-all duration-300 ease-in-out">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-700">local_shipping</span>
+<h1 class="font-serif text-2xl font-bold tracking-tight text-blue-800 italic">LogiTrack</h1>
+</div>
+<div>
+<!-- Avatar Placeholder -->
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden shadow-sm outline outline-1 outline-outline-variant/20">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Professional headshot of a person looking forward against a clean, light neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqSS1lfGdy0uIY26oO7L8S6RCkKHy52R4SsGtDFErN6aQXeKlYQLyXLINFaYawTqZbvhm2NM-zlnytFo9M6krSYy6ujZOqNubnAQ2DHEX76Scsxzjl8viu3v5RRA-2GqFGhPAixfRQmXXbBl3TDrshHYBBU7RG5ujHjhM70CXFZ8bsA9E5KVT6Vb7VHEtyai8i8dw-JuJ1v9fU0Df_DZJ7luVQQ4oVYOMmzGibS22xpgzEFSXG3YndZKBqlA9XgDGWV5r1qOaymuc"/>
+</div>
+</div>
+</header>
+<!-- Floating Tracking ID Card -->
+<div class="absolute top-[88px] left-1/2 transform -translate-x-1/2 w-11/12 max-w-lg z-40">
+<div class="bg-surface-container-lowest/85 backdrop-blur-[20px] rounded-3xl p-5 flex flex-col gap-3 shadow-[0_12px_40px_rgba(0,0,0,0.06)] border border-outline-variant/15">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="font-label text-xs uppercase tracking-widest text-on-surface-variant font-semibold">Tracking ID</span>
+<span class="font-body text-xl font-bold text-on-surface mt-1">TRK-8924-MKLQ</span>
+</div>
+<div class="bg-tertiary-container/30 px-3 py-1.5 rounded-lg flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+<span class="font-label text-xs font-bold text-on-tertiary-container">IN TRANSIT</span>
+</div>
+</div>
+<!-- Mini Progress -->
+<div class="mt-2 w-full flex items-center gap-2">
+<div class="h-1.5 flex-1 bg-primary rounded-full"></div>
+<div class="h-1.5 flex-1 bg-primary rounded-full"></div>
+<div class="h-1.5 flex-1 bg-surface-variant rounded-full relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-1/3 bg-primary rounded-full"></div>
+</div>
+<div class="h-1.5 flex-1 bg-surface-variant rounded-full"></div>
+</div>
+<div class="flex justify-between w-full font-label text-[10px] text-on-surface-variant mt-1 px-1">
+<span>Dispatched</span>
+<span>En Route</span>
+<span>Out for Delivery</span>
+<span>Delivered</span>
+</div>
+</div>
+</div>
+<!-- Bottom Sheet (Shipment Info) -->
+<!-- Positioned above the 80px BottomNavBar -->
+<div class="absolute bottom-[80px] left-0 w-full z-40 bg-surface-container-lowest rounded-t-[32px] pt-4 pb-8 px-6 shadow-[0_-12px_48px_rgba(0,0,0,0.08)] flex flex-col gap-6 max-h-[530px] overflow-y-auto outline outline-1 outline-outline-variant/15">
+<!-- Drag Handle Indicator -->
+<div class="w-12 h-1.5 bg-surface-variant rounded-full mx-auto self-center mb-2"></div>
+<!-- ETA Header -->
+<div class="flex flex-col items-center text-center">
+<span class="font-label text-sm font-medium text-on-surface-variant uppercase tracking-wider">Estimated Arrival</span>
+<div class="font-headline text-5xl font-bold text-primary mt-1 tracking-tight">14 MIN</div>
+<span class="font-body text-sm text-on-surface-variant mt-2">Arriving at approximately 2:45 PM</span>
+</div>
+<!-- Courier Info Card -->
+<div class="bg-surface-container-low rounded-2xl p-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="relative">
+<img alt="Courier photo" class="w-14 h-14 rounded-full object-cover shadow-sm" data-alt="Friendly male delivery driver looking at camera wearing a casual uniform against a bright blurred background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsC6W83vhjcSlTGir283R-n0Gx0y7twa8stFSdFE7MbcBrU6UgvCEFEYQxbMtb5f5xczP3GO4WWeWK-9OifbuJdGhbYmY27bMtyo5zW0RU3F4TTEUHkM-AiAU0YKMwLrnKoHUPWmU6xcwEKC044q_KdOHSWdPDi9MCAj-J6QHVTQKbw8NXTdMU0g76ZTiQoPQC5X-x20h5mB937-i6xYz6fnTBbJXU3ujE-PWuhakrbyLvwXgfMH_9qprd2UtFSPF-sl_tfCfS4N4"/>
+<div class="absolute -bottom-1 -right-1 bg-surface-container-lowest rounded-full p-1 shadow-sm">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="font-body font-semibold text-on-surface text-lg">Marcus R.</span>
+<span class="font-label text-sm text-on-surface-variant">White Ford Transit • AB 492 XYZ</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded-full shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-2xl py-4 px-6 flex items-center justify-center gap-3 hover:opacity-90 transition-opacity mt-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">call</span>
+<span class="font-label text-base font-bold tracking-wide">Call Courier</span>
+</button>
+</div>
+<!-- BottomNavBar (Shared Component) -->
+<!-- Active State Logic: 'Tracking' matches screen intent -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-slate-50/90 backdrop-blur-md border-t border-zinc-200/10 shadow-[0_-4px_20px_0_rgba(0,0,0,0.05)] transition-all duration-300 ease-in-out">
+<!-- Dashboard (Inactive) -->
+<a class="flex flex-col items-center justify-center text-zinc-500 hover:text-blue-600 transition-all duration-300 ease-in-out group w-16" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">dashboard</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest mt-1">Dashboard</span>
+</a>
+<!-- Tracking (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-blue-700 bg-blue-50/50 rounded-xl px-4 py-1.5 transition-all duration-300 ease-in-out scale-95 w-20" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="font-sans text-[10px] font-bold uppercase tracking-widest mt-1">Tracking</span>
+</a>
+<!-- Geofence (Inactive) -->
+<a class="flex flex-col items-center justify-center text-zinc-500 hover:text-blue-600 transition-all duration-300 ease-in-out group w-16" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">polyline</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest mt-1">Geofence</span>
+</a>
+<!-- History (Inactive) -->
+<a class="flex flex-col items-center justify-center text-zinc-500 hover:text-blue-600 transition-all duration-300 ease-in-out group w-16" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">history</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest mt-1">History</span>
+</a>
+</nav>
+</body></html>
+
+<!-- Shipment Details -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LogiTrack - Shipment Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Inter:wght@400;500;600&amp;family=Public+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary": "#094cb2",
+                    "inverse-primary": "#b1c5ff",
+                    "tertiary-fixed-dim": "#dcc661",
+                    "secondary-container": "#dfe3e8",
+                    "on-primary-container": "#e7ebff",
+                    "on-secondary-fixed": "#171c20",
+                    "secondary-fixed": "#dfe3e8",
+                    "on-tertiary-container": "#4a3f00",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#524600",
+                    "background": "#faf9fa",
+                    "primary-fixed": "#d9e2ff",
+                    "on-surface": "#1b1c1d",
+                    "on-tertiary-fixed": "#211b00",
+                    "on-surface-variant": "#434653",
+                    "tertiary-container": "#bfab49",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#6d5e00",
+                    "primary-container": "#3366cc",
+                    "inverse-on-surface": "#f2f0f1",
+                    "surface-dim": "#dbdadb",
+                    "surface-tint": "#2259bf",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f5f3f4",
+                    "on-secondary-fixed-variant": "#42474b",
+                    "surface-bright": "#faf9fa",
+                    "error": "#ba1a1a",
+                    "surface": "#faf9fa",
+                    "surface-container": "#efedee",
+                    "secondary-fixed-dim": "#c2c7cc",
+                    "on-error-container": "#93000a",
+                    "on-background": "#1b1c1d",
+                    "outline": "#737784",
+                    "surface-container-highest": "#e3e2e3",
+                    "surface-container-high": "#e9e8e9",
+                    "on-primary-fixed": "#001946",
+                    "primary-fixed-dim": "#b1c5ff",
+                    "on-primary-fixed-variant": "#00419d",
+                    "surface-variant": "#e3e2e3",
+                    "outline-variant": "#c3c6d5",
+                    "secondary": "#5a5f63",
+                    "inverse-surface": "#303031",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#f9e37a",
+                    "on-secondary-container": "#606569"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Public Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Noto Serif', serif; }
+        .label-text { font-family: 'Public Sans', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-slate-50/80 dark:bg-zinc-950/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full z-50 sticky top-0 transition-all duration-300 ease-in-out">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400 text-3xl" data-icon="local_shipping" data-weight="fill" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+<span class="font-serif text-2xl font-bold text-blue-800 dark:text-blue-300 italic tracking-tight">LogiTrack</span>
+</div>
+<div class="flex items-center gap-4 hidden md:flex">
+<a class="text-zinc-500 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 px-3 py-2 rounded-lg transition-all duration-300 ease-in-out label-text" href="#">Dashboard</a>
+<a class="text-blue-700 dark:text-blue-400 font-bold hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 px-3 py-2 rounded-lg transition-all duration-300 ease-in-out label-text" href="#">Tracking</a>
+<a class="text-zinc-500 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 px-3 py-2 rounded-lg transition-all duration-300 ease-in-out label-text" href="#">Geofence</a>
+<a class="text-zinc-500 dark:text-zinc-400 font-medium hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 px-3 py-2 rounded-lg transition-all duration-300 ease-in-out label-text" href="#">History</a>
+</div>
+<div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="person">person</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow container mx-auto px-4 py-8 md:py-12 max-w-5xl mb-24 md:mb-8">
+<!-- Header Section -->
+<div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<p class="label-text text-sm font-semibold text-primary uppercase tracking-widest mb-2">Shipment Details</p>
+<h1 class="text-4xl md:text-5xl font-bold text-on-surface leading-tight">TRK-8849-2091</h1>
+<p class="font-body text-on-surface-variant mt-2 text-lg">Estimated Delivery: Tomorrow by 8:00 PM</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 rounded-lg bg-surface-container-high text-primary font-label font-semibold hover:bg-surface-container-highest transition-colors">
+                    Report Issue
+                </button>
+<button class="px-6 py-3 rounded-lg bg-gradient-to-r from-primary to-primary-container text-on-primary font-label font-semibold hover:opacity-90 transition-opacity shadow-md">
+                    Track Live
+                </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Timeline (Left Column) -->
+<div class="md:col-span-4 bg-surface-container-lowest rounded-xl p-6 md:p-8">
+<h2 class="text-2xl font-bold text-on-surface mb-8 border-b-2 border-surface-container pb-4">Journey</h2>
+<div class="relative pl-6 space-y-8 before:content-[''] before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[2px] before:bg-surface-variant">
+<!-- Current Status -->
+<div class="relative">
+<div class="absolute -left-[31px] bg-surface-container-lowest p-1 rounded-full">
+<div class="w-4 h-4 rounded-full bg-primary ring-4 ring-primary-fixed shadow-[0_0_10px_rgba(9,76,178,0.3)]"></div>
+</div>
+<div>
+<p class="font-label text-sm text-primary font-semibold mb-1">In Transit</p>
+<p class="font-body text-on-surface font-medium">Out for Delivery</p>
+<p class="font-body text-sm text-on-surface-variant mt-1">Today, 08:14 AM • Local Distribution Center</p>
+</div>
+</div>
+<!-- Past Status 1 -->
+<div class="relative">
+<div class="absolute -left-[31px] bg-surface-container-lowest p-1 rounded-full">
+<div class="w-4 h-4 rounded-full bg-surface-variant"></div>
+</div>
+<div>
+<p class="font-label text-sm text-on-surface-variant font-medium mb-1">Departed Facility</p>
+<p class="font-body text-on-surface">Regional Sorting Hub</p>
+<p class="font-body text-sm text-on-surface-variant mt-1">Yesterday, 11:42 PM • Chicago, IL</p>
+</div>
+</div>
+<!-- Past Status 2 -->
+<div class="relative">
+<div class="absolute -left-[31px] bg-surface-container-lowest p-1 rounded-full">
+<div class="w-4 h-4 rounded-full bg-surface-variant"></div>
+</div>
+<div>
+<p class="font-label text-sm text-on-surface-variant font-medium mb-1">Arrived at Facility</p>
+<p class="font-body text-on-surface">Regional Sorting Hub</p>
+<p class="font-body text-sm text-on-surface-variant mt-1">Yesterday, 06:15 PM • Chicago, IL</p>
+</div>
+</div>
+<!-- Past Status 3 -->
+<div class="relative">
+<div class="absolute -left-[31px] bg-surface-container-lowest p-1 rounded-full">
+<div class="w-4 h-4 rounded-full bg-surface-variant"></div>
+</div>
+<div>
+<p class="font-label text-sm text-on-surface-variant font-medium mb-1">Picked Up</p>
+<p class="font-body text-on-surface">Origin Facility</p>
+<p class="font-body text-sm text-on-surface-variant mt-1">Oct 12, 09:30 AM • Seattle, WA</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column Grid -->
+<div class="md:col-span-8 flex flex-col gap-6">
+<!-- Info Cards Row -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Recipient -->
+<div class="bg-surface-container-lowest rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+<h3 class="font-label text-sm font-semibold text-on-surface-variant uppercase tracking-wider mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="person">person</span>
+                            Recipient
+                        </h3>
+<p class="font-serif text-xl font-bold text-on-surface mb-1">Eleanor Vance</p>
+<p class="font-body text-on-surface-variant">1042 Hillside Manor Drive<br/>Apartment 4B<br/>Boston, MA 02116</p>
+</div>
+<!-- Dimensions -->
+<div class="bg-surface-container-lowest rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+<h3 class="font-label text-sm font-semibold text-on-surface-variant uppercase tracking-wider mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-xl" data-icon="box">inventory_2</span>
+                            Package Specs
+                        </h3>
+<div class="grid grid-cols-2 gap-y-4">
+<div>
+<p class="font-label text-xs text-on-surface-variant mb-1">Weight</p>
+<p class="font-serif text-lg font-bold text-on-surface">14.2 lbs</p>
+</div>
+<div>
+<p class="font-label text-xs text-on-surface-variant mb-1">Dimensions</p>
+<p class="font-serif text-lg font-bold text-on-surface">24" x 18" x 12"</p>
+</div>
+<div>
+<p class="font-label text-xs text-on-surface-variant mb-1">Service Type</p>
+<p class="font-serif text-lg font-bold text-on-surface">Express 2-Day</p>
+</div>
+<div>
+<p class="font-label text-xs text-on-surface-variant mb-1">Signature</p>
+<p class="font-serif text-lg font-bold text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span> Required
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Proof of Delivery -->
+<div class="bg-surface-container-lowest rounded-xl p-6 md:p-8 flex-grow flex flex-col">
+<h3 class="font-label text-sm font-semibold text-on-surface-variant uppercase tracking-wider mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="verified">verified</span>
+                        Proof of Delivery
+                    </h3>
+<div class="flex-grow border-2 border-dashed border-outline-variant rounded-lg bg-surface-container-low flex flex-col items-center justify-center p-8 text-center min-h-[250px] transition-colors hover:bg-surface-container">
+<div class="w-16 h-16 bg-surface rounded-full flex items-center justify-center mb-4 shadow-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl" data-icon="draw">draw</span>
+</div>
+<p class="font-serif text-xl font-bold text-on-surface mb-2">Awaiting Signature</p>
+<p class="font-body text-on-surface-variant max-w-sm">Recipient signature or photo confirmation will appear here once the package is delivered.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-slate-50/90 dark:bg-zinc-950/90 backdrop-blur-md full-width bottom-0 rounded-t-xl border-t border-zinc-200/10 shadow-[0_-4px_20px_0_rgba(0,0,0,0.05)] fixed left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20">
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-300 w-16 h-14" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-700 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl px-3 py-1 scale-95 transition-transform w-16 h-14" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="map" data-weight="fill" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest">Tracking</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-300 w-16 h-14" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="polyline">polyline</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest">Geofence</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-300 w-16 h-14" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="history">history</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest">History</span>
+</a>
+</nav>
+</body></html>
+
+<!-- Dashboard -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LogiTrack Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Public+Sans:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary": "#094cb2",
+                        "inverse-primary": "#b1c5ff",
+                        "tertiary-fixed-dim": "#dcc661",
+                        "secondary-container": "#dfe3e8",
+                        "on-primary-container": "#e7ebff",
+                        "on-secondary-fixed": "#171c20",
+                        "secondary-fixed": "#dfe3e8",
+                        "on-tertiary-container": "#4a3f00",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#524600",
+                        "background": "#faf9fa",
+                        "primary-fixed": "#d9e2ff",
+                        "on-surface": "#1b1c1d",
+                        "on-tertiary-fixed": "#211b00",
+                        "on-surface-variant": "#434653",
+                        "tertiary-container": "#bfab49",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#6d5e00",
+                        "primary-container": "#3366cc",
+                        "inverse-on-surface": "#f2f0f1",
+                        "surface-dim": "#dbdadb",
+                        "surface-tint": "#2259bf",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f5f3f4",
+                        "on-secondary-fixed-variant": "#42474b",
+                        "surface-bright": "#faf9fa",
+                        "error": "#ba1a1a",
+                        "surface": "#faf9fa",
+                        "surface-container": "#efedee",
+                        "secondary-fixed-dim": "#c2c7cc",
+                        "on-error-container": "#93000a",
+                        "on-background": "#1b1c1d",
+                        "outline": "#737784",
+                        "surface-container-highest": "#e3e2e3",
+                        "surface-container-high": "#e9e8e9",
+                        "on-primary-fixed": "#001946",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "on-primary-fixed-variant": "#00419d",
+                        "surface-variant": "#e3e2e3",
+                        "outline-variant": "#c3c6d5",
+                        "secondary": "#5a5f63",
+                        "inverse-surface": "#303031",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#f9e37a",
+                        "on-secondary-container": "#606569"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Public Sans", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-headline { font-family: 'Noto Serif', serif; }
+        .font-label { font-family: 'Public Sans', sans-serif; }
+        /* Fallback background if variables fail */
+        body { background-color: #faf9fa; color: #1b1c1d; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24 md:pb-0">
+<!-- TopAppBar (Web & Mobile Header) -->
+<header class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-zinc-950/80 backdrop-blur-xl bg-surface-container-lowest/80 border-b-0 shadow-sm transition-all duration-300 ease-in-out flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400 text-on-surface">local_shipping</span>
+<span class="font-serif text-2xl font-bold tracking-tight text-blue-800 dark:text-blue-300 italic text-primary">LogiTrack</span>
+</div>
+<!-- Web Navigation (Hidden on Mobile) -->
+<nav class="hidden md:flex items-center gap-8 font-label text-sm font-medium tracking-wide">
+<a class="text-blue-700 dark:text-blue-400 font-bold hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 px-3 py-2 rounded-lg transition-all duration-300 ease-in-out text-primary" href="#">Dashboard</a>
+<a class="text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 px-3 py-2 rounded-lg transition-all duration-300 ease-in-out text-on-surface-variant" href="#">Tracking</a>
+<a class="text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 px-3 py-2 rounded-lg transition-all duration-300 ease-in-out text-on-surface-variant" href="#">Geofence</a>
+<a class="text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 px-3 py-2 rounded-lg transition-all duration-300 ease-in-out text-on-surface-variant" href="#">History</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-on-surface">search</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface">person</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-4 md:px-8 max-w-7xl mx-auto space-y-10">
+<!-- Greeting Section -->
+<section class="space-y-2 mt-4">
+<h1 class="font-headline text-4xl md:text-5xl font-bold text-on-surface tracking-tight">Good morning, Curator.</h1>
+<p class="font-body text-on-surface-variant text-lg max-w-2xl">Your logistics network is currently operating at optimal efficiency. Here is the daily synthesis.</p>
+</section>
+<!-- Top Level Overview Cards (Bento Grid) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Active Shipments -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary-container"></div>
+<div class="flex justify-between items-start mb-4">
+<h2 class="font-label text-sm font-semibold uppercase tracking-widest text-on-surface-variant">Active Fleet</h2>
+<span class="material-symbols-outlined text-primary bg-primary-container/20 p-2 rounded-lg">local_shipping</span>
+</div>
+<div class="space-y-1">
+<div class="text-5xl font-headline font-bold text-on-surface group-hover:text-primary transition-colors">3</div>
+<div class="text-sm font-body text-on-surface-variant">In Transit</div>
+</div>
+</div>
+<!-- Pending Approvals -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-tertiary to-tertiary-container"></div>
+<div class="flex justify-between items-start mb-4">
+<h2 class="font-label text-sm font-semibold uppercase tracking-widest text-on-surface-variant">Pending</h2>
+<span class="material-symbols-outlined text-tertiary bg-tertiary-container/20 p-2 rounded-lg">schedule</span>
+</div>
+<div class="space-y-1">
+<div class="text-5xl font-headline font-bold text-on-surface group-hover:text-tertiary transition-colors">1</div>
+<div class="text-sm font-body text-on-surface-variant">Awaiting Clearance</div>
+</div>
+</div>
+<!-- Total Revenue / Volume -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary to-secondary-container"></div>
+<div class="flex justify-between items-start mb-4">
+<h2 class="font-label text-sm font-semibold uppercase tracking-widest text-on-surface-variant">Daily Volume</h2>
+<span class="material-symbols-outlined text-secondary bg-secondary-container/20 p-2 rounded-lg">inventory_2</span>
+</div>
+<div class="space-y-1">
+<div class="text-5xl font-headline font-bold text-on-surface">12k</div>
+<div class="text-sm font-body text-on-surface-variant">Units Processed</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Quick Actions & Chart Placeholder -->
+<div class="lg:col-span-1 space-y-8">
+<!-- Quick Actions Grid -->
+<section>
+<h2 class="font-headline text-2xl font-bold mb-4 text-on-surface">Quick Actions</h2>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl hover:bg-surface-container-low transition-colors shadow-sm group">
+<span class="material-symbols-outlined text-3xl mb-3 text-primary group-hover:scale-110 transition-transform">add_box</span>
+<span class="font-label text-sm font-medium text-on-surface text-center">New Shipment</span>
+</button>
+<button class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl hover:bg-surface-container-low transition-colors shadow-sm group">
+<span class="material-symbols-outlined text-3xl mb-3 text-primary group-hover:scale-110 transition-transform">qr_code_scanner</span>
+<span class="font-label text-sm font-medium text-on-surface text-center">Scan Barcode</span>
+</button>
+<button class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl hover:bg-surface-container-low transition-colors shadow-sm group">
+<span class="material-symbols-outlined text-3xl mb-3 text-on-surface-variant group-hover:scale-110 transition-transform">description</span>
+<span class="font-label text-sm font-medium text-on-surface text-center">Generate Report</span>
+</button>
+<button class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-xl hover:bg-surface-container-low transition-colors shadow-sm group">
+<span class="material-symbols-outlined text-3xl mb-3 text-on-surface-variant group-hover:scale-110 transition-transform">group</span>
+<span class="font-label text-sm font-medium text-on-surface text-center">Manage Drivers</span>
+</button>
+</div>
+</section>
+<!-- Small Aesthetic Image/Chart Area -->
+<div class="rounded-xl overflow-hidden shadow-sm h-48 bg-surface-container relative">
+<img alt="Abstract aerial view of shipping containers stacked symmetrically in muted tones" class="w-full h-full object-cover opacity-80 mix-blend-multiply" data-alt="abstract aerial view of shipping containers stacked symmetrically in muted tones, geometric patterns, professional logistics aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKnuX8Ch-Y6V6UleqNUxfY1aX8l8-_W1FqJeyKNBinWuQ54LjgDtBmZhVzuVJeEH8Rv77ZzHkfYvFuQfbCfse-9okkw9Guv19NLwNGXAuahMrDJNdpjHDI6I8sBdh1r3U9DmV2TnHFGpa-AqQw_iKzBvDlyXAyu-_IMNDmau3_kgUEECF8xnCN6eYT74eJRWdO_A6ivoFNM-Uij2fawjfS22sBHPLM8PkBfC92zrT5VpVOxTZUhqlZJnqifubKMGVWvZUPFqhJDj0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/90 to-transparent p-4 flex flex-col justify-end">
+<span class="font-label text-xs uppercase tracking-wider text-on-surface-variant">Capacity Status</span>
+<span class="font-headline font-bold text-xl text-on-surface">Port Terminal B is 84% full</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Recent Activity (Scrollable) -->
+<div class="lg:col-span-2">
+<section class="h-full flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline text-2xl font-bold text-on-surface">Recent Activity</h2>
+<button class="font-label text-sm font-medium text-primary hover:underline">View All</button>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="p-6 space-y-6 overflow-y-auto max-h-[600px] pr-2 custom-scrollbar">
+<!-- Activity Item 1 -->
+<div class="flex gap-4 items-start relative pb-6 border-b border-outline-variant/20 last:border-0 last:pb-0">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">flight_takeoff</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-label font-semibold text-on-surface">Shipment #AX-992 Departed</h3>
+<span class="font-body text-xs text-on-surface-variant">10 mins ago</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant">Air freight departing from LAX en route to LHR. Estimated arrival in 11 hours.</p>
+<div class="mt-2 inline-flex items-center gap-1 px-2 py-1 bg-surface-container rounded text-xs font-medium text-on-surface">
+<span class="material-symbols-outlined text-[14px]">location_on</span> Los Angeles, CA
+                                    </div>
+</div>
+</div>
+<!-- Activity Item 2 -->
+<div class="flex gap-4 items-start relative pb-6 border-b border-outline-variant/20 last:border-0 last:pb-0">
+<div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-label font-semibold text-on-surface">Delivery Confirmed: #GR-104</h3>
+<span class="font-body text-xs text-on-surface-variant">45 mins ago</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant">Package signed for by J. Smith at destination facility.</p>
+</div>
+</div>
+<!-- Activity Item 3 -->
+<div class="flex gap-4 items-start relative pb-6 border-b border-outline-variant/20 last:border-0 last:pb-0">
+<div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error">warning</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-label font-semibold text-on-surface">Delay Exception: #TR-441</h3>
+<span class="font-body text-xs text-on-surface-variant">2 hours ago</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant">Ground transport delayed due to severe weather conditions on Route 66.</p>
+<button class="mt-2 text-xs font-label font-semibold text-primary hover:underline">Review Details</button>
+</div>
+</div>
+<!-- Activity Item 4 -->
+<div class="flex gap-4 items-start relative pb-6 border-b border-outline-variant/20 last:border-0 last:pb-0">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant">inventory</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<h3 class="font-label font-semibold text-on-surface">Inventory Audit Completed</h3>
+<span class="font-body text-xs text-on-surface-variant">Yesterday</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant">Warehouse B monthly audit finished with 99.8% accuracy.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-slate-50/90 dark:bg-zinc-950/90 backdrop-blur-md rounded-t-xl border-t border-zinc-200/10 shadow-[0_-4px_20px_0_rgba(0,0,0,0.05)] bg-surface-container-lowest">
+<!-- Dashboard (Active) -->
+<a class="flex flex-col items-center justify-center text-blue-700 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl px-3 py-1 hover:text-blue-600 dark:hover:text-blue-300 Active: scale-95 transition-transform text-primary bg-primary-container/10" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest mt-1 font-label">Dashboard</span>
+</a>
+<!-- Tracking (Inactive) -->
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-300 Active: scale-95 transition-transform text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest mt-1 font-label">Tracking</span>
+</a>
+<!-- Geofence (Inactive) -->
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-300 Active: scale-95 transition-transform text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">polyline</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest mt-1 font-label">Geofence</span>
+</a>
+<!-- History (Inactive) -->
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-300 Active: scale-95 transition-transform text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest mt-1 font-label">History</span>
+</a>
+</nav>
+<style>
+        /* Custom scrollbar for the recent activity section to keep it clean */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: var(--color-surface-variant, #e3e2e3);
+            border-radius: 10px;
+        }
+    </style>
+</body></html>
+
+<!-- Geofence Management -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LogiTrack - Geofence Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary": "#094cb2",
+                        "inverse-primary": "#b1c5ff",
+                        "tertiary-fixed-dim": "#dcc661",
+                        "secondary-container": "#dfe3e8",
+                        "on-primary-container": "#e7ebff",
+                        "on-secondary-fixed": "#171c20",
+                        "secondary-fixed": "#dfe3e8",
+                        "on-tertiary-container": "#4a3f00",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#524600",
+                        "background": "#faf9fa",
+                        "primary-fixed": "#d9e2ff",
+                        "on-surface": "#1b1c1d",
+                        "on-tertiary-fixed": "#211b00",
+                        "on-surface-variant": "#434653",
+                        "tertiary-container": "#bfab49",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#6d5e00",
+                        "primary-container": "#3366cc",
+                        "inverse-on-surface": "#f2f0f1",
+                        "surface-dim": "#dbdadb",
+                        "surface-tint": "#2259bf",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f5f3f4",
+                        "on-secondary-fixed-variant": "#42474b",
+                        "surface-bright": "#faf9fa",
+                        "error": "#ba1a1a",
+                        "surface": "#faf9fa",
+                        "surface-container": "#efedee",
+                        "secondary-fixed-dim": "#c2c7cc",
+                        "on-error-container": "#93000a",
+                        "on-background": "#1b1c1d",
+                        "outline": "#737784",
+                        "surface-container-highest": "#e3e2e3",
+                        "surface-container-high": "#e9e8e9",
+                        "on-primary-fixed": "#001946",
+                        "primary-fixed-dim": "#b1c5ff",
+                        "on-primary-fixed-variant": "#00419d",
+                        "surface-variant": "#e3e2e3",
+                        "outline-variant": "#c3c6d5",
+                        "secondary": "#5a5f63",
+                        "inverse-surface": "#303031",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#f9e37a",
+                        "on-secondary-container": "#606569"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif", "serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Public Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col pt-20 pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-slate-50/80 dark:bg-zinc-950/80 backdrop-blur-xl docked full-width top-0 bg-zinc-100 dark:bg-zinc-900 flat no shadows elevation through tonal layers flex justify-between items-center px-6 py-4 w-full z-50 fixed top-0 left-0">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-blue-700 dark:text-blue-400">local_shipping</span>
+<h1 class="font-serif text-2xl font-bold tracking-tight text-blue-800 dark:text-blue-300 italic">LogiTrack</h1>
+</div>
+<!-- Desktop Nav -->
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-all duration-300 ease-in-out px-3 py-2 rounded-xl font-label text-sm font-medium" href="#">Dashboard</a>
+<a class="text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-all duration-300 ease-in-out px-3 py-2 rounded-xl font-label text-sm font-medium" href="#">Tracking</a>
+<a class="text-blue-700 dark:text-blue-400 font-bold hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-all duration-300 ease-in-out px-3 py-2 rounded-xl font-label text-sm" href="#">Geofence</a>
+<a class="text-zinc-500 dark:text-zinc-400 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-all duration-300 ease-in-out px-3 py-2 rounded-xl font-label text-sm font-medium" href="#">History</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold font-label">
+                US
+            </div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow container mx-auto px-4 md:px-8 py-8 max-w-7xl">
+<!-- Page Header & Actions -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+<div>
+<h2 class="font-headline text-4xl text-on-surface mb-2">Geofence Management</h2>
+<p class="text-on-surface-variant font-body text-lg">Define and monitor virtual perimeters for your logistics network.</p>
+</div>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-3 rounded-full font-label font-medium flex items-center gap-2 hover:opacity-90 transition-opacity shadow-sm">
+<span class="material-symbols-outlined">add</span>
+                Create New Geofence
+            </button>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Active Geofences List (Left Column) -->
+<div class="lg:col-span-5 flex flex-col gap-4">
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex flex-col h-full border border-outline-variant/20">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-xl text-on-surface">Active Zones</h3>
+<span class="bg-tertiary-container text-on-tertiary-container text-xs px-2 py-1 rounded-full font-label font-bold">4 Active</span>
+</div>
+<!-- Search/Filter -->
+<div class="relative mb-6">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant/30 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:border-primary text-sm font-body" placeholder="Search geofences..." type="text"/>
+</div>
+<!-- List Items -->
+<div class="flex flex-col gap-3 overflow-y-auto pr-2" style="max-height: 600px;">
+<!-- Item 1 (Selected) -->
+<div class="bg-primary-fixed rounded-lg p-4 cursor-pointer transition-colors border border-primary/20">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">warehouse</span>
+<div>
+<h4 class="font-label font-semibold text-on-primary-fixed text-base">Main Warehouse</h4>
+<p class="text-xs text-on-primary-fixed-variant font-body">Radius: 5.2 km • Polygon</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex gap-2 mt-3 text-xs font-label text-on-primary-fixed-variant">
+<span class="bg-surface-container-lowest/50 px-2 py-1 rounded">Alerts: Entry/Exit</span>
+<span class="bg-surface-container-lowest/50 px-2 py-1 rounded">Vehicles: 12 inside</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-lowest hover:bg-surface-container-low rounded-lg p-4 cursor-pointer transition-colors border border-outline-variant/15">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">business_center</span>
+<div>
+<h4 class="font-label font-semibold text-on-surface text-base">Downtown Zone</h4>
+<p class="text-xs text-on-surface-variant font-body">Radius: 2.5 km • Circle</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex gap-2 mt-3 text-xs font-label text-on-surface-variant">
+<span class="bg-surface-container px-2 py-1 rounded">Alerts: Speed limit</span>
+<span class="bg-surface-container px-2 py-1 rounded">Vehicles: 3 inside</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface-container-lowest hover:bg-surface-container-low rounded-lg p-4 cursor-pointer transition-colors border border-outline-variant/15">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">directions_boat</span>
+<div>
+<h4 class="font-label font-semibold text-on-surface text-base">Port Terminal A</h4>
+<p class="text-xs text-on-surface-variant font-body">Radius: 8.0 km • Polygon</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex gap-2 mt-3 text-xs font-label text-on-surface-variant">
+<span class="bg-surface-container px-2 py-1 rounded">Alerts: Idle time &gt; 1h</span>
+<span class="bg-surface-container px-2 py-1 rounded">Vehicles: 0 inside</span>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="bg-surface-container-lowest hover:bg-surface-container-low rounded-lg p-4 cursor-pointer transition-colors border border-outline-variant/15">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">route</span>
+<div>
+<h4 class="font-label font-semibold text-on-surface text-base">I-95 Corridor Segment</h4>
+<p class="text-xs text-on-surface-variant font-body">Route Buffer: 1.0 km</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex gap-2 mt-3 text-xs font-label text-on-surface-variant">
+<span class="bg-surface-container px-2 py-1 rounded">Alerts: Deviation</span>
+<span class="bg-surface-container px-2 py-1 rounded">Active routes: 5</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Map View & Details (Right Column) -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<!-- Map Container -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm h-[400px] lg:h-[500px] relative border border-outline-variant/15 flex flex-col">
+<!-- Top controls overlay -->
+<div class="absolute top-4 left-4 right-4 flex justify-between items-start z-10">
+<div class="bg-surface-container-lowest/90 backdrop-blur-sm rounded-lg p-2 shadow-sm flex gap-2">
+<button class="p-2 rounded hover:bg-surface-variant text-on-surface transition-colors" title="Draw Polygon">
+<span class="material-symbols-outlined text-sm">pentagon</span>
+</button>
+<button class="p-2 rounded bg-primary-container text-on-primary-container hover:bg-primary transition-colors" title="Draw Circle">
+<span class="material-symbols-outlined text-sm">radio_button_unchecked</span>
+</button>
+<div class="w-px bg-outline-variant/30 my-1 mx-1"></div>
+<button class="p-2 rounded hover:bg-surface-variant text-on-surface transition-colors" title="Edit Shape">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div class="bg-surface-container-lowest/90 backdrop-blur-sm rounded-lg p-2 shadow-sm flex flex-col gap-2">
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+</div>
+</div>
+<!-- Placeholder Map Image -->
+<div class="flex-grow bg-surface-variant relative overflow-hidden">
+<!-- Simulated Map Texture/Image -->
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&amp;w=2000&amp;auto=format&amp;fit=crop')] bg-cover bg-center opacity-40 mix-blend-luminosity" data-alt="clean minimal digital map interface showing city streets and industrial zones in muted gray tones"></div>
+<!-- Simulated Geofence Polygon Overlay -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-48 bg-primary/20 border-2 border-primary/60 rounded-sm transform rotate-3 flex items-center justify-center backdrop-blur-[1px]">
+<div class="bg-surface-container-lowest px-3 py-1 rounded-full shadow-sm text-xs font-label text-primary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warehouse</span> Main Warehouse
+                             </div>
+</div>
+<!-- Simulated Vehicle Markers -->
+<div class="absolute top-[45%] left-[48%] w-3 h-3 bg-tertiary rounded-full border-2 border-white shadow-sm"></div>
+<div class="absolute top-[52%] left-[55%] w-3 h-3 bg-tertiary rounded-full border-2 border-white shadow-sm"></div>
+</div>
+<!-- Map Bottom Info -->
+<div class="bg-surface-container-lowest px-4 py-3 border-t border-outline-variant/20 flex justify-between items-center text-sm">
+<span class="text-on-surface-variant font-body">Selected: <strong class="text-on-surface">Main Warehouse</strong></span>
+<span class="text-on-surface-variant font-body text-xs">Area: 12.4 sq km</span>
+</div>
+</div>
+<!-- Geofence Details / Quick Edit -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant/15">
+<h3 class="font-headline text-lg text-on-surface mb-4">Zone Configuration</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-4">
+<div>
+<label class="block text-xs font-label text-on-surface-variant mb-1">Zone Name</label>
+<input class="w-full bg-surface border border-outline-variant/30 rounded-lg py-2 px-3 focus:outline-none focus:border-primary text-sm font-body text-on-surface" type="text" value="Main Warehouse"/>
+</div>
+<div>
+<label class="block text-xs font-label text-on-surface-variant mb-1">Zone Type</label>
+<select class="w-full bg-surface border border-outline-variant/30 rounded-lg py-2 px-3 focus:outline-none focus:border-primary text-sm font-body text-on-surface appearance-none">
+<option>Industrial / Hub</option>
+<option>Restricted Area</option>
+<option>Customer Site</option>
+</select>
+</div>
+</div>
+<div class="space-y-4 bg-surface-container-low p-4 rounded-lg">
+<h4 class="font-label text-sm font-semibold text-on-surface mb-2">Alert Triggers</h4>
+<label class="flex items-center justify-between cursor-pointer">
+<span class="text-sm font-body text-on-surface-variant">Vehicle Entry</span>
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary relative"></div>
+</label>
+<label class="flex items-center justify-between cursor-pointer">
+<span class="text-sm font-body text-on-surface-variant">Vehicle Exit</span>
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary relative"></div>
+</label>
+<label class="flex items-center justify-between cursor-pointer pt-2 border-t border-outline-variant/20">
+<span class="text-sm font-body text-on-surface-variant">Speed Limit Exceeded (&gt; 25km/h)</span>
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-8 h-4 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary relative"></div>
+</label>
+</div>
+</div>
+<div class="mt-6 flex justify-end gap-3">
+<button class="text-primary hover:underline font-label text-sm px-4 py-2">Delete Zone</button>
+<button class="bg-surface-container-high text-primary px-4 py-2 rounded-lg font-label text-sm hover:bg-surface-variant transition-colors">Discard Changes</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-lg font-label text-sm hover:opacity-90 transition-opacity">Save Configuration</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-slate-50/90 dark:bg-zinc-950/90 backdrop-blur-md border-t border-zinc-200/10 shadow-[0_-4px_20px_0_rgba(0,0,0,0.05)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-300 w-16 h-14" href="#">
+<span class="material-symbols-outlined text-2xl mb-1">dashboard</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-300 w-16 h-14" href="#">
+<span class="material-symbols-outlined text-2xl mb-1">map</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest">Tracking</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-700 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-900/20 rounded-xl px-3 py-1 Active: scale-95 transition-transform w-16 h-14" href="#">
+<span class="material-symbols-outlined text-2xl mb-1" style="font-variation-settings: 'FILL' 1;">polyline</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest">Geofence</span>
+</a>
+<a class="flex flex-col items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-300 w-16 h-14" href="#">
+<span class="material-symbols-outlined text-2xl mb-1">history</span>
+<span class="font-sans text-[10px] font-medium uppercase tracking-widest">History</span>
+</a>
+</nav>
+</body></html>
